@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>Liste des CDs</title>
+</h:head>
+<h:body>
+    <h1>Liste des CDs Disponibles</h1>
+
+    <h:dataTable value="#{cinethequeBean.cdsDisponibles}" var="cd">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{cd.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Titre</f:facet>
+            #{cd.titre}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Artiste</f:facet>
+            #{cd.artiste}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Action</f:facet>
+            <h:form>
+                <h:inputHidden value="#{cd.id}" />
+                <h:commandButton value="Emprunter" action="#{cinethequeBean.emprunterCD}">
+                    <f:attribute name="cdId" value="#{cd.id}" />
+                </h:commandButton>
+            </h:form>
+        </h:column>
+    </h:dataTable>
+
+    <h2>Emprunter un CD</h2>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel for="nomEmprunteur" value="Nom de l'emprunteur:" />
+            <h:inputText id="nomEmprunteur" value="#{cinethequeBean.newEmprunt.nomEmprunteur}" />
+
+            <h:outputLabel for="cdId" value="ID du CD:" />
+            <h:inputText id="cdId" value="#{cinethequeBean.newEmprunt.cdId}" />
+
+            <h:commandButton value="Emprunter" action="#{cinethequeBean.emprunterCD}" />
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>
